@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Aman Kumar Pandey | ITSM Specialist Portfolio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+  /* Root variables for vibrant colors */
+  :root {
+    --color-primary: #6a0dad;
+    --color-secondary: #ff3c78;
+    --color-accent: #00ffd1;
+    --color-bg: #0f0f2f;
+    --color-bg-alt: #1c1c44;
+    --color-text-light: #f0f0f5;
+    --color-text-dark: #222;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #130f40, #6a0dad);
+    font-family: 'Poppins', sans-serif;
+    color: var(--color-text-light);
+    scroll-behavior: smooth;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    background: var(--color-bg-alt);
+    z-index: 999;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--color-secondary);
+  }
+  header h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--color-secondary);
+    user-select: none;
+    cursor: default;
+  }
+  nav a {
+    margin-left: 1.5rem;
+    text-decoration: none;
+    color: var(--color-text-light);
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  nav a:hover {
+    color: var(--color-accent);
+  }
+  section {
+    max-width: 940px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+  }
+  .hero {
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    opacity: 0;
+    animation: nameFadeScale 1.5s forwards;
+  }
+  .hero p {
+    font-size: 1.25rem;
+    max-width: 580px;
+    line-height: 1.5;
+    font-weight: 300;
+    opacity: 0;
+    animation: titleFadeSlide 1.5s forwards;
+    animation-delay: 1.2s;
+  }
+  .contact-info {
+    margin-top: 1rem;
+    font-weight: 500;
+    color: var(--color-accent);
+  }
+  .contact-info a {
+    color: var(--color-accent);
+    text-decoration: none;
+    margin: 0 0.75rem;
+  }
+  .contact-info a:hover {
+    text-decoration: underline;
+  }
+  /* Removed profile-pic styles as no image */
+  h3.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    border-left: 5px solid var(--color-secondary);
+    padding-left: 0.75rem;
+    margin-bottom: 1rem;
+    color: var(--color-secondary);
+    user-select: none;
+  }
+  .section-subtitle {
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--color-accent);
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+  }
+  /* Work Experience Timeline */
+  .timeline {
+    border-left: 3px solid var(--color-secondary);
+    padding-left: 2rem; /* increased padding so text not overlapped */
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -30px; /* moved further left to avoid overlap */
+    top: 0;
+    width: 18px;
+    height: 18px;
+    background: var(--color-secondary);
+    border-radius: 50%;
+    border: 3px solid var(--color-bg);
+    box-shadow: 0 0 5px var(--color-secondary);
+  }
+  .timeline-item h4 {
+    margin: 0 0 0.25rem;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-accent);
+  }
+  .timeline-item span.date {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-secondary);
+    user-select: none;
+  }
+  .timeline-item p {
+    margin: 0.25rem 0 0;
+    line-height: 1.4;
+    font-weight: 300;
+  }
+  /* Skills Section */
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .skill {
+    background: var(--color-bg-alt);
+    border-radius: 12px;
+    flex: 1 1 140px;
+    padding: 1rem;
+    box-shadow: 0 0 10px var(--color-secondary);
+    text-align: center;
+    cursor: default;
+    user-select: none;
+  }
+  .skill h5 {
+    margin: 0 0 0.75rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+  .progress-bar {
+    background: #22224c;
+    border-radius: 10px;
+    height: 12px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 12px;
+    background: var(--color-secondary);
+    width: 0%;
+    border-radius: 10px;
+    transition: width 2s ease;
+  }
+  /* Certifications & Education Cards */
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+  }
+  .card {
+    background: var(--color-bg-alt);
+    border-radius: 14px;
+    flex: 1 1 280px;
+    padding: 1rem 1.2rem;
+    box-shadow: 0 0 14px var(--color-secondary);
+    cursor: default;
+  }
+  .card h4, .card h5 {
+    margin: 0 0 0.4rem;
+    color: var(--color-accent);
+  }
+  .card p {
+    margin: 0.25rem 0 0.5rem;
+    font-weight: 300;
+  }
+  /* Awards & Volunteering Highlights */
+  .highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .highlight {
+    background: var(--color-secondary);
+    color: var(--color-bg);
+    flex: 1 1 280px;
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+    box-shadow: 0 0 20px var(--color-secondary);
+    cursor: default;
+    transition: background 0.3s ease;
+  }
+  .highlight:hover {
+    background: var(--color-accent);
+    color: var(--color-bg-alt);
+    box-shadow: 0 0 25px var(--color-accent);
+  }
+  /* Footer Contact */
+  footer {
+    text-align: center;
+    margin: 3rem auto 2rem;
+    font-size: 0.9rem;
+    color: var(--color-accent);
+  }
+  /* Scroll animation */
+  .fade-in {
+    animation: fadeInUp 1s forwards;
+  }
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    } to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  /* Animations for hero name and title */
+  @keyframes nameFadeScale {
+    0% { opacity: 0; transform: scale(0.8); text-shadow: 0 0 0 rgba(255, 0, 120, 0); }
+    50% { opacity: 1; transform: scale(1.05); text-shadow: 0 0 10px var(--color-secondary), 0 0 20px var(--color-secondary); }
+    100% { opacity: 1; transform: scale(1); text-shadow: 0 0 8px var(--color-secondary), 0 0 16px var(--color-secondary); }
+  }
+  @keyframes titleFadeSlide {
+    0% {opacity: 0; transform: translateY(20px);}
+    100% {opacity: 1; transform: translateY(0);}
+  }
+  /* Responsive */
+  @media (max-width: 700px) {
+    .skills-grid, .cards, .highlights {
+      flex-direction: column;
+    }
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    nav {
+      margin-top: 0.5rem;
+    }
+  }
+  /* Animated background shapes */
+  .background-shapes {
+    position: absolute;
+    top: -120px;
+    left: -80px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--color-secondary), transparent 70%);
+    filter: blur(70px);
+    animation: pulseRotate 15s linear infinite;
+    z-index: 0;
+  }
+  .background-shapes-2 {
+    position: absolute;
+    bottom: -120px;
+    right: -80px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--color-accent), transparent 70%);
+    filter: blur(85px);
+    animation: pulseRotateReverse 17s linear infinite;
+    z-index: 0;
+  }
+  @keyframes pulseRotate {
+    0% { transform: rotate(0deg) translate(0, 0) rotate(0deg); }
+    100% {transform: rotate(360deg) translate(10px, 10px) rotate(-360deg);}
+  }
+  @keyframes pulseRotateReverse {
+    0% { transform: rotate(360deg) translate(0, 0) rotate(-360deg); }
+    100% {transform: rotate(0deg) translate(-10px, -10px) rotate(360deg);}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Aman Kumar Pandey</h1>
+  <nav aria-label="Primary navigation">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#awards">Awards</a>
+    <a href="#volunteering">Volunteering</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" aria-label="Introduction">
+    <div class="background-shapes"></div>
+    <div class="background-shapes-2"></div>
+    <!-- Profile picture removed as requested -->
+    <h2>AMAN KUMAR PANDEY</h2>
+    <p>IT Service Management Specialist | ITIL V4 Certified | Azure Administrator</p>
+    <div class="contact-info" aria-label="Contact information">
+      <a href="mailto:amanlikegallants@gmail.com" target="_blank" rel="noopener">Email</a> •
+      <a href="tel:+919708505080" target="_blank" rel="noopener">Phone</a> •
+      <a href="https://www.linkedin.com/in/itsmamankumarpandey" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </section>
+
+  <section id="about" aria-labelledby="about-title">
+    <h3 class="section-title" id="about-title">About Me</h3>
+    <p class="section-subtitle">Experienced IT Service Management Specialist with 9+ years in IT and ITES sectors</p>
+    <p>
+      Proven track record in optimizing service delivery and operational workflows using ServiceNow and Azure platforms,
+      driving SLA compliance and enhancing customer satisfaction. Skilled in leading teams, implementing knowledge
+      management systems, and delivering continuous improvement. Adept at managing complex projects and fostering
+      strong client relationships to achieve strategic business outcomes.
+    </p>
+  </section>
+
+  <section id="experience" aria-labelledby="experience-title">
+    <h3 class="section-title" id="experience-title">Work Experience</h3>
+    <div class="timeline">
+      <article class="timeline-item" tabindex="0">
+        <h4>Technical Specialist - HCL Technologies</h4>
+        <span class="date">May 2023 - Present | Lucknow</span>
+        <p>
+          Managed incident management for six service clusters under digital workplace engineering, achieving 100% SLA resolution 
+          for two consecutive quarters and reducing incidents by 20% within six months. Maintained 100% communication compliance 
+          during major incidents and reduced Mean Time To Resolve by 30%, raising customer satisfaction to 95%. Developed Root Cause 
+          Analysis and improved problem resolution processes, reducing recurring incidents by 17%. Enhanced knowledge management 
+          and ServiceNow dashboards for proactive SLA management.
+        </p>
+      </article>
+      <article class="timeline-item" tabindex="0">
+        <h4>Service Management Analyst - Accenture Services India Limited</h4>
+        <span class="date">Jul 2021 - Apr 2023 | Kolkata</span>
+        <p>
+          Initiated and documented change requests with business justification and risk management ensuring SLA compliance. 
+          Monitored incidents and change implementations, preventing SLA breaches. Analyzed incident trends and prepared reports 
+          for stakeholders. Led root cause analysis activities and major incident investigation.
+        </p>
+      </article>
+      <article class="timeline-item" tabindex="0">
+        <h4>Associate Consultant - Capgemini Technology Services India Limited</h4>
+        <span class="date">Jun 2019 - Jul 2021 | Noida</span>
+        <p>
+          Provided 24/7 technical support for Exchange, VPN AnyConnect, SSO, and application password resets. Managed work orders 
+          and Office 365 migrations. Delivered process training and enhanced team performance.
+        </p>
+      </article>
+      <article class="timeline-item" tabindex="0">
+        <h4>Quality Assurance (Fraud Prevention Analytics) - Teleperformance Jaipur</h4>
+        <span class="date">Dec 2016 - Jun 2019 | Jaipur</span>
+        <p>
+          Conducted call driver analysis, client interaction, performance reporting and fraud risk minimization through compliance. 
+          Managed triage calls and technical support for Microsoft NA customers, escalating issues for resolution.
+        </p>
+      </article>
+      <article class="timeline-item" tabindex="0">
+        <h4>Process Associate - Cyfuture India Pvt Ltd</h4>
+        <span class="date">Feb 2016 - Sep 2016 | Jaipur</span>
+        <p>
+          Executed marketing campaigns with data analysis for business objectives. Ensured marketing content quality and efficiency.
+        </p>
+      </article>
+      <article class="timeline-item" tabindex="0">
+        <h4>Customer Care Executive - Teleperformance Jaipur</h4>
+        <span class="date">Aug 2015 - Dec 2015 | Jaipur</span>
+        <p>
+          Delivered customer support via phone, email, and chat handling order and refund issues with high satisfaction metrics.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="skills" aria-labelledby="skill-title">
+    <h3 class="section-title" id="skill-title">Core Competencies & Skills</h3>
+    <p class="section-subtitle">Technical, Process & Soft Skills</p>
+    <div class="skills-grid" aria-label="Skills list and proficiency">
+      <div class="skill" aria-describedby="skill-sn1">
+        <h5>ServiceNow Automation</h5>
+        <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+        <small id="skill-sn1">Expertise using ServiceNow to automate ITSM workflows and dashboards.</small>
+      </div>
+      <div class="skill" aria-describedby="skill-sn2">
+        <h5>Incident & Problem Management</h5>
+        <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
+        <small id="skill-sn2">Strong capabilities in incident resolution, root cause analysis, and issue prevention.</small>
+      </div>
+      <div class="skill" aria-describedby="skill-sn3">
+        <h5>Azure Administration</h5>
+        <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
+        <small id="skill-sn3">Certified Azure Administrator skills to manage cloud infrastructure and services.</small>
+      </div>
+      <div class="skill" aria-describedby="skill-sn4">
+        <h5>ITIL Framework</h5>
+        <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
+        <small id="skill-sn4">In-depth knowledge of ITIL v4 practices applied in service management.</small>
+      </div>
+      <div class="skill" aria-describedby="skill-sn5">
+        <h5>Power BI & Data Analysis</h5>
+        <div class="progress-bar"><div class="progress-fill" style="width: 70%;"></div></div>
+        <small id="skill-sn5">Proficient in Power BI, advance Excel, and data visualization techniques.</small>
+      </div>
+      <div class="skill" aria-describedby="skill-sn6">
+        <h5>Client Relationship & Leadership</h5>
+        <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+        <small id="skill-sn6">Strong leadership, mentoring, and client communication skills.</small>
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications" aria-labelledby="certifications-title">
+    <h3 class="section-title" id="certifications-title">Certifications & Education</h3>
+    <div class="cards">
+      <div class="card" tabindex="0" role="group" aria-labelledby="cert1">
+        <h4 id="cert1">ITIL® V4 Foundation</h4>
+        <p>PeopleCert | Axelos, May 2024</p>
+      </div>
+      <div class="card" tabindex="0" role="group" aria-labelledby="cert2">
+        <h4 id="cert2">AZ-104: Azure Administrator</h4>
+        <p>Microsoft, Aug 2024</p>
+      </div>
+      <div class="card" tabindex="0" role="group" aria-labelledby="cert3">
+        <h4 id="cert3">AZ-900: Azure Fundamentals</h4>
+        <p>Microsoft, May 2022</p>
+      </div>
+      <div class="card" tabindex="0" role="group" aria-labelledby="edu1">
+        <h4 id="edu1">Bachelor of Arts in Economics</h4>
+        <p>Tilka Manjhi Bhagalpur University, 2012 - 2016</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="awards" aria-labelledby="awards-title">
+    <h3 class="section-title" id="awards-title">Awards & Achievements</h3>
+    <div class="highlights" aria-label="Awards and honors">
+      <div class="highlight" tabindex="0">
+        QA Star and CSAT Champ (Teleperformance Jaipur, Jun 2019) – Excellence in customer satisfaction & quality assurance.
+      </div>
+      <div class="highlight" tabindex="0">
+        Customer Delight Award (Capgemini Technology Services, Jul 2021) – Outstanding customer service & support delivery.
+      </div>
+      <div class="highlight" tabindex="0">
+        WIGIWYG - Xtramiles Award (Airbus Commercial via HCL Technologies, Dec 2023) – Implemented robust knowledge management.
+      </div>
+    </div>
+  </section>
+
+  <section id="volunteering" aria-labelledby="volunteering-title">
+    <h3 class="section-title" id="volunteering-title">Volunteering & Interests</h3>
+    <div class="card" tabindex="0">
+      <h4>Blood Donor Volunteer - Red Cross Society, Jamalpur</h4>
+      <p>Regular blood donor supporting life-saving efforts since Jan 2023. Advocate for blood donation and community health awareness.</p>
+    </div>
+    <div class="card" tabindex="0">
+      <h4>Interests</h4>
+      <p>CMDB Management, Global Risk & Compliance Management</p>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-title">
+    <h3 class="section-title" id="contact-title">Get In Touch</h3>
+    <p style="text-align:center; font-weight: 500;">
+      Feel free to contact me via email or LinkedIn for collaborations, opportunities, or queries.
+    </p>
+    <p style="text-align:center; font-weight: 700; font-size: 1.2rem;">
+      <a href="mailto:amanlikegallants@gmail.com" style="color: var(--color-secondary);" aria-label="Email Aman Kumar Pandey">amanlikegallants@gmail.com</a>
+      &nbsp; | &nbsp;
+      <a href="https://www.linkedin.com/in/itsmamankumarpandey" target="_blank" rel="noopener" style="color: var(--color-secondary);" aria-label="LinkedIn profile of Aman Kumar Pandey">LinkedIn Profile</a>
+    </p>
+  </section>
+</main>
+
+<footer>
+  &copy; 2024 Aman Kumar Pandey. All rights reserved.
+</footer>
+
+<script>
+  // Animate skill bars on load
+  window.addEventListener('load', () => {
+    const fills = document.querySelectorAll('.progress-fill');
+    fills.forEach(fill => {
+      const w = fill.style.width;
+      fill.style.width = '0%';
+      setTimeout(() => {
+        fill.style.width = w;
+      }, 200);
+    });
+
+    // Animate timeline items on scroll
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {threshold: 0.3});
+
+    timelineItems.forEach(item => observer.observe(item));
+  });
+</script>
+</body>
+</html>
+
